@@ -10,10 +10,10 @@ interface FormData {
 }
 
 interface Props {
-  setLoggedIn: React.Dispatch<boolean>;
+  logIn: () => void;
 }
 
-export default function Login({ setLoggedIn }: Props) {
+export default function Login({ logIn }: Props) {
   const [creatingAccount, setCreatingAccount] = useState(false);
   const [error, setError] = useState(false);
   const { register, handleSubmit } = useForm<FormData>();
@@ -23,8 +23,8 @@ export default function Login({ setLoggedIn }: Props) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
-        setLoggedIn(true);
+        console.log("logging in...");
+        logIn();
       })
       .catch((err) => {
         console.log(err.message);
@@ -32,7 +32,9 @@ export default function Login({ setLoggedIn }: Props) {
   };
 
   if (creatingAccount)
-    return <CreateUser goBack={() => setCreatingAccount(false)} />;
+    return (
+      <CreateUser goBack={() => setCreatingAccount(false)} logIn={logIn} />
+    );
 
   return (
     <div>

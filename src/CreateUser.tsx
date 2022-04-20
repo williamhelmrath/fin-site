@@ -15,9 +15,10 @@ interface AirtableResponse {
 
 interface Props {
   goBack: () => void;
+  logIn: () => void;
 }
 
-const CreateUser = ({ goBack }: Props) => {
+const CreateUser = ({ goBack, logIn }: Props) => {
   const [needPassword, setNeedPassword] = useState(false);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -43,6 +44,7 @@ const CreateUser = ({ goBack }: Props) => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        logIn();
       })
       .catch((err) => {
         const errorCode = err.code;
