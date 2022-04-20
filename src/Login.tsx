@@ -47,7 +47,9 @@ export default function Login({ logIn }: Props) {
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
+        <label>Email</label>
         <input type="email" {...register("email", { required: true })} />
+        <label>Password</label>
         <input type="password" {...register("password", { required: true })} />
         <button type="submit">Login</button>
       </form>

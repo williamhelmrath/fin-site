@@ -70,14 +70,21 @@ const CreateUser = ({ goBack, logIn }: Props) => {
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
+        <label>Email</label>
         <input type="email" disabled={needPassword} {...register("email")} />
+        <button type="submit" disabled={needPassword}>
+          Validate email
+        </button>
+        <label>Password</label>
         <input
           type="password"
           disabled={!needPassword}
           {...register("password")}
         />
 
-        <button type="submit">Create Account</button>
+        <button type="submit" disabled={!needPassword}>
+          Create Account
+        </button>
       </form>
       <button onClick={goBack}>Go back</button>
     </div>
