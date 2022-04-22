@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <iframe
         className="airtable-embed"
-        src="https://airtable.com/embed/shr0jePRJhCAr11to?backgroundColor=orange&layout=card"
+        src="https://airtable.com/embed/shrqmMY9qYnhO1aAc?backgroundColor=orange&viewControls=on"
         frameBorder="0"
         width="100%"
         height="100%"
