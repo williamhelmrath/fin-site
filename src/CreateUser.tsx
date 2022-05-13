@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 import keys from "./keys";
+import { Button, FormField, Main, Text, TextInput } from "grommet";
 
 interface FormData {
   email: string;
@@ -36,6 +37,7 @@ const CreateUser = ({ goBack, logIn }: Props) => {
     } else {
       setNeedPassword(true);
       setEmail(email);
+      setError(false);
     }
   };
 
@@ -60,34 +62,59 @@ const CreateUser = ({ goBack, logIn }: Props) => {
   };
 
   return (
-    <div>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <label>Email</label>
-        <input type="email" disabled={needPassword} {...register("email")} />
-        <button type="submit" disabled={needPassword}>
-          Validate email
-        </button>
-        <label>Password</label>
-        <input
-          type="password"
-          disabled={!needPassword}
-          {...register("password")}
-        />
-
-        <button type="submit" disabled={!needPassword}>
-          Create Account
-        </button>
-      </form>
-      <button onClick={goBack}>Go back</button>
-    </div>
+    <Main margin={{ top: "20px" }} pad="small">
+      <div>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            maxWidth: 1100,
+            margin: "auto",
+          }}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Text>
+            First, we need to verify your email to confirm that you're a part of
+            our community.
+          </Text>
+          <FormField
+            label="Email"
+            error={error && "That email is not part of our network"}
+          >
+            <TextInput
+              type="email"
+              disabled={needPassword}
+              {...register("email")}
+            />
+          </FormField>
+          <Button
+            secondary
+            label="Validate Email"
+            type="submit"
+            disabled={needPassword}
+          />
+          {needPassword && (
+            <Text>Now, you can choose a password for your account.</Text>
+          )}
+          <FormField label="Password">
+            <TextInput
+              type="password"
+              disabled={!needPassword}
+              {...register("password")}
+            />
+          </FormField>
+          <Button
+            primary
+            label="Create Account"
+            type="submit"
+            disabled={!needPassword}
+          />
+        </form>
+        <Button secondary label="Go Back" onClick={goBack} />
+      </div>
+    </Main>
   );
 };
 
